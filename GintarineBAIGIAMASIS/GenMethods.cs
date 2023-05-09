@@ -1,15 +1,19 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GintarineBAIGIAMASIS
 {
+
     internal class GeneralMethods
     {
+
         IWebDriver driver;
         public GeneralMethods(IWebDriver driver)
         {
@@ -53,7 +57,34 @@ namespace GintarineBAIGIAMASIS
                 {
                     Assert.Fail("Failed in " + categoryURL + " " + prices[i] + " " + prices[i + 1]);
                 }
-            }
+     
+            }   
         }
+        public IWebElement WaitElement(string xpath, IWebDriver driver) 
+        {
+            return WaitElement(By.XPath(xpath), driver);
+        }
+        public IWebElement WaitElement(By by, IWebDriver driver)
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.IgnoreExceptionTypes(typeof(ElementNotVisibleException));
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            wait.PollingInterval = TimeSpan.FromSeconds(0.5);
+            return wait.Until(d => d.FindElement(by));
+        }
+        public static void CaptureScrnsht(IWebDriver driver, string fileName)
+        {
+            var screenshotDriver = driver as ITakesScreenshot;
+            Screenshot screenshot = screenshotDriver.GetScreenshot();
+
+            if (!Directory.Exists("Screenshots"))
+            {
+                Directory.CreateDirectory("Screenshots");
+            }
+
+            screenshot.SaveAsFile($"Screenshots\\{fileName}.png",
+                ScreenshotImageFormat.Png);
+        }
+
     }
 }

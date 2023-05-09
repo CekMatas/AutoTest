@@ -64,14 +64,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GenMethods.cs" />
+    <Compile Include="POM\CheckTitle.cs" />
+    <Compile Include="POM\Login.cs" />
     <Compile Include="POM\ProductCard.cs" />
     <Compile Include="POM\ProductList.cs" />
     <Compile Include="POM\TopMenu.cs" />
-    <Compile Include="SearchAndNavigationTest.cs" />
-    <Compile Include="LoginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProductInfoTest.cs" />
-    <Compile Include="SortingTest.cs" />
+    <Compile Include="AutoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
