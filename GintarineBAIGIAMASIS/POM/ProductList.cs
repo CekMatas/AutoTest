@@ -11,6 +11,7 @@ namespace GintarineBAIGIAMASIS.POM
     {
         IWebDriver driver;
         GeneralMethods generalMethods;
+        By countInBasket = By.XPath("(//div/div[@class='cart-qty'])[2]");
         public ProductList(IWebDriver driver)
         {
             this.driver = driver;
@@ -22,6 +23,11 @@ namespace GintarineBAIGIAMASIS.POM
             IJavaScriptExecutor javascriptExecutor = (IJavaScriptExecutor)driver;
             javascriptExecutor.ExecuteScript("arguments[0].click();",
             driver.FindElement(By.XPath("(//div/a[contains(@class,'product__img-url')])[" + x + "]")));
+        }
+        public int BasketCount()
+        {
+            string count = driver.FindElement(countInBasket).Text;
+            return int.Parse(count);
         }
     }
 }

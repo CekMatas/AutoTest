@@ -26,6 +26,20 @@ namespace GintarineBAIGIAMASIS
             js.ExecuteScript("arguments[0].scrollIntoView(true);", el);
             el.Click();
         }
+        public void AddToCart()
+        {
+            IWebElement el = driver.FindElement(By.XPath("//button[@id='addToCart']"));
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", el);
+            el.Click();
+        }
+        public void GoToCart()
+        {
+            IWebElement el = driver.FindElement(By.XPath("//nav//a/div[@class='user-controls__cart-label']"));
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", el);
+            el.Click();
+        }
         public void EnterTextAndPressENTER(string xpath, string text)
         {
             By searchField = By.XPath(xpath);

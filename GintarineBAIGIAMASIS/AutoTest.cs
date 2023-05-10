@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -70,7 +71,7 @@ namespace GintarineBAIGIAMASIS
         {
             GeneralMethods generalMethods = new GeneralMethods(driver);
 
-            generalMethods.TestSortingAsc("https://www.gintarine.lt/kosmetika-vaikams"); // Input wanted Gintarine.lt product Category
+            generalMethods.TestSortingAsc("https://www.gintarine.lt/kosmetika-vaikams"); // Input wanted Gintarine.lt product category
 
         }
         [Test]
@@ -82,12 +83,12 @@ namespace GintarineBAIGIAMASIS
             ProductCard productCard = new ProductCard(driver);
 
             topMenu.SearchByText("žuvų taukai");                // Input wanted text for the item you are searching
-            productList.SelectProduct(5);
+            productList.SelectProduct(5);                       // Input wanted product from the list by selecting a number
             productCard.ValidateMainInfo();
 
         }
         [Test]
-        public static void MainProfilePageInfo()
+        public static void CheckIfMyProfileIsShown()
         {
             GeneralMethods generalMethods = new GeneralMethods(driver);
             LoginPage login = new LoginPage(driver);
@@ -116,7 +117,7 @@ namespace GintarineBAIGIAMASIS
 
         }
         [Test]
-        public static void WrongLoginAlertInfo()
+        public static void CheckWrongLoginAlertInfo()
         {
             GeneralMethods generalMethods = new GeneralMethods(driver);
             LoginPage login = new LoginPage(driver);
@@ -154,7 +155,7 @@ namespace GintarineBAIGIAMASIS
 
         }
         [Test]
-        public static void SearchItemsByWordsAndCheckProductInfo()
+        public static void CheckIfProductOpens()
         {
             TopMenu topMenu = new TopMenu(driver);
             ProductList productList = new ProductList(driver);            
@@ -163,7 +164,6 @@ namespace GintarineBAIGIAMASIS
             topMenu.SearchByText("akiu lasai");
 
             productList.SelectProduct(1);                  //Select which product from the shown products you want to select
-            productCard.ValidateMainInfo();
             
 
         }
@@ -174,12 +174,47 @@ namespace GintarineBAIGIAMASIS
             GeneralMethods generalMethods = new GeneralMethods(driver);
 
             Thread.Sleep(2000);
+
             generalMethods.ClickElement("//header//div//nav/a[@class='user-controls__link user-controls__login']");
             login.EnterEmail("Autotestmatasc@gmail.com");
             login.EnterPassword("Matasc2023");
             login.ClickLoginButton();
             Thread.Sleep(5000);
 
+
+        }
+        [Test]
+        public static void CheckTitle()
+        {
+            CheckTitle checkTitle = new CheckTitle(driver);
+
+            checkTitle.CheckTitl("Vaistai internete | Gintarinė vaistinė");  //Input wanted Title for checking if it's correct
+        }
+        [Test]
+        public static void CheckIfSelectedItemsAreInYourCart()
+        {
+            TopMenu topMenu = new TopMenu(driver);
+            ProductList productsList = new ProductList(driver);
+            GeneralMethods generalMethods = new GeneralMethods(driver);
+
+            topMenu.SearchByText("SPF");
+            productsList.SelectProduct(10);
+            Thread.Sleep(1500);
+            generalMethods.AddToCart();
+            driver.Navigate().Back();
+            productsList.SelectProduct(5);
+            Thread.Sleep(1500);
+            generalMethods.AddToCart();
+            driver.Navigate().Back();
+            productsList.SelectProduct(1);
+            Thread.Sleep(1500);
+            generalMethods.AddToCart();
+            driver.Navigate().Back();
+
+            int itemsInCart = 3;                     // Skaičiu reiktų, norint pridėti daugiau prekių.
+            int actualItemsInCart = productsList.BasketCount();
+
+            Assert.AreEqual(itemsInCart, actualItemsInCart);
 
         }
 
