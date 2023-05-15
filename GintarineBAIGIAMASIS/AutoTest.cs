@@ -31,11 +31,18 @@ namespace GintarineBAIGIAMASIS
             driver.Url = "https://www.gintarine.lt/";
             By acceptCookies = By.XPath("//div//a[@id='CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll']");
             driver.FindElement(acceptCookies).Click();
+            // Ar nereiktų implicit wait'ą aukščiau aprašyti kad jau ir cookių click'ui veiktų?
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         }
         [TearDown]
         public static void TearDown()
         {
+            // Čia trūksta direktorijos sukūrimo užtikrinimo,
+            // nes pas mane viskas lūžo, bandė ieškoti katalogo kuris
+            // dar neegzistavo.
+            // Galima buvo galima išnaudoti ta kuris yra prie screenshot'u
+            // bet tada šitą kodą logiška būtų padėti į fuhnkciją ir
+            // tada užnaudoti ten.
             var countToLeave = 10;
             var faylai = Directory.GetFiles("Screenshots").ToList();
             faylai.Sort();
@@ -77,6 +84,7 @@ namespace GintarineBAIGIAMASIS
         [Test]
         public void CheckIfProductInfoIsDisplayed()
         {
+            // generalMethods nepanaudotas ir nereikaligas tokiu atveju
             GeneralMethods generalMethods = new GeneralMethods(driver);
             TopMenu topMenu = new TopMenu(driver);
             ProductList productList = new ProductList(driver);
@@ -158,7 +166,8 @@ namespace GintarineBAIGIAMASIS
         public static void CheckIfProductOpens()
         {
             TopMenu topMenu = new TopMenu(driver);
-            ProductList productList = new ProductList(driver);            
+            ProductList productList = new ProductList(driver);     
+            // nepanaudotas
             ProductCard productCard = new ProductCard(driver);
 
             topMenu.SearchByText("akiu lasai");

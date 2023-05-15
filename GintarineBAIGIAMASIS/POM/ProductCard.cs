@@ -15,6 +15,13 @@ namespace GintarineBAIGIAMASIS.POM
         {
             this.driver = driver;
         }
+        // assertai man čia nelabai patinka
+        // mano nuomone galėtų būti tiesiog visų šitų sąlygų suma
+        // bet iš kitos pusės čia galima praplėsti kas negerai.
+        // nežinau net kaip čia pasakyti
+        // Man nelabai patinbka bet kaip ir gerai
+        // ar reikia POM'o vien tik checkui?
+        // Čia geresnis filosofinis klausimas
         public void ValidateMainInfo()
         {
             IWebElement productName = driver.FindElement(By.XPath("(//div/h1[@class='single-product__title'])[2]"));

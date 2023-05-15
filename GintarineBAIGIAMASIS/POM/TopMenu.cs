@@ -9,6 +9,8 @@ namespace GintarineBAIGIAMASIS.POM
 {
     internal class TopMenu
     {
+        // šitas globalus kintamasis nebūtinas,
+        // nes niekur nepanaudotas.
         IWebDriver driver;
         GeneralMethods generalMethods;
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace GintarineBAIGIAMASIS.POM
 {
+    // Čia viskas atrodo gerai neturiu ką paskayti
     internal class LoginPage
     {
         IWebDriver driver;
